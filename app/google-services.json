@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1087846737366",
+    "firebase_url": "https://diagonline-a0560.firebaseio.com",
+    "project_id": "diagonline-a0560",
+    "storage_bucket": "diagonline-a0560.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087846737366:android:40b35ce85b48fa1f",
+        "android_client_info": {
+          "package_name": "com.fungeonstudio.diagonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087846737366-16js31as2pc5l23kq2u86c16jhcqj7kn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBO4kEgMpC5jKBITV6qVBNFOogUbhTtgI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

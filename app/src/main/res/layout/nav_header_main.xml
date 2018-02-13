@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/space24"
+    android:paddingLeft="@dimen/space16"
+    android:paddingRight="@dimen/space16"
+    android:paddingBottom="@dimen/space24">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="@dimen/space24" />
+
+    <TextView
+        android:id="@+id/nav_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/space8"
+        android:text="MARCO TOMASINI"
+        android:textAppearance="@style/SemiBold"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3" />
+
+    <TextView
+        android:id="@+id/nav_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="372 Points"
+        android:textAppearance="@style/Light"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3" />
+
+</LinearLayout>

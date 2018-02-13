@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Diagonline</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="facebook_application_id" translatable="false">154354991889067</string>
+    <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fbAPP_ID</string>
+
+    <string name="twitter_consumer_key" translatable="false">gzgu2Ig6ez2eP9g0sKtPwjfQ9</string>
+    <string name="twitter_consumer_secret" translatable="false">5nZLKcCaUTksslZoTqb4GJli9O9ziNfODZK596KdczhzDCnjL2
+</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="get_started">Get Started</string>
+</resources>
