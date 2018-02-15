@@ -36,10 +36,19 @@ import com.fungeonstudio.diagonline.R;
 import com.fungeonstudio.diagonline.recycler.CommentsAdapter;
 import com.fungeonstudio.diagonline.recycler.ItemComment;
 import com.fungeonstudio.diagonline.recycler.ItemPreparation;
+import com.fungeonstudio.diagonline.recycler.ItemReview;
 import com.fungeonstudio.diagonline.recycler.PreparationAdapter;
+import com.fungeonstudio.diagonline.recycler.ReviewAdapter;
 import com.fungeonstudio.diagonline.utils.CircleGlide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -53,9 +62,15 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
     private CommentsAdapter mAdapterComments;
     private CoordinatorLayout rootView;
 
+    private RecyclerView recyclerViewReview;
+    private ReviewAdapter mAdapterReview;
+
     private TextView tv_name, tv_desc, tv_location;
     private RatingBar ratingBar;
     private Toolbar toolbar;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("reviews");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +105,21 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         recyclerViewPreparation.setItemAnimator(new DefaultItemAnimator());
         recyclerViewPreparation.setAdapter(mAdapterPreparation);
 
-        recyclerViewComments = (RecyclerView) findViewById(R.id.recyclerComment);
+        //recyclerViewComments = (RecyclerView) findViewById(R.id.recyclerComment);
 
-        mAdapterComments = new CommentsAdapter(generateComments(), this);
+        recyclerViewReview = (RecyclerView) findViewById(R.id.recyclerComment);
+
+       /* mAdapterComments = new CommentsAdapter(generateComments(), this);
         LinearLayoutManager mLayoutManagerComment = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewComments.setLayoutManager(mLayoutManagerComment);
         recyclerViewComments.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewComments.setAdapter(mAdapterComments);
+        recyclerViewComments.setAdapter(mAdapterComments);*/
+
+        mAdapterReview = new ReviewAdapter(generateReview(), this);
+        LinearLayoutManager mLayoutManagerReview = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewReview.setLayoutManager(mLayoutManagerReview);
+        recyclerViewReview.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewReview.setAdapter(mAdapterReview);
 
 
         final ImageView imageComment = (ImageView) findViewById(R.id.iv_user);
@@ -162,6 +185,65 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         }
         return itemList;
     }
+
+
+    public List<ItemReview> generateReview(){
+        final List<ItemReview> itemList = new ArrayList<>();
+        final List<String> hospitalKeys = new ArrayList<>();
+
+        /*DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        Query query = reference.child("hospitals").orderByChild("name").equalTo(getIntent().getExtras().getString("NAME"));
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for(DataSnapshot uniqueKeySnapshot : dataSnapshot.getChildren()){
+                        //Loop 1 to go through all the child nodes of users
+                        for(DataSnapshot booksSnapshot : uniqueKeySnapshot.child("reviews").getChildren()){
+                            String key = booksSnapshot.getValue().toString();
+                            hospitalKeys.add(key);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.d("Lists", hospitalKeys.toString());*/
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+
+            Query query1 = reference1.child("reviews").orderByChild("id").equalTo(1);
+
+            query1.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists())
+                    {
+                        for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                        {
+                            ItemReview review = postSnapShot.getValue(ItemReview.class);
+                            itemList.add(review);
+                            mAdapterReview.notifyDataSetChanged();
+                        }
+                    }
+                    //p
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        return itemList;
+    }
+
 
     public List<ItemPreparation> generatePreparation(){
         List<ItemPreparation> itemList = new ArrayList<>();

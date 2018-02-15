@@ -2,7 +2,7 @@ package com.fungeonstudio.diagonline.recycler;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import com.fungeonstudio.diagonline.DetailActivity;
 import com.fungeonstudio.diagonline.R;
 import com.fungeonstudio.diagonline.utils.CircleGlide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyViewHolder> {
 
-    private List<Hospitals> items;
+    private List<ItemHospital> items;
     private Context context;
     private boolean active;
 
@@ -59,7 +60,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
     }
 
 
-    public HospitalAdapter(List<Hospitals> items, Context context) {
+    public HospitalAdapter(List<ItemHospital> items, Context context) {
         this.items = items;
         this.context = context;
     }
@@ -74,7 +75,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final Hospitals itemHospital = items.get(position);
+        final ItemHospital itemHospital = items.get(position);
         holder.recipe.setText(itemHospital.getName());
         holder.time.setText(itemHospital.getLocation());
         holder.ratingBar.setRating(3);
@@ -93,15 +94,15 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
     }
 
     //OPEN DETAIL ACTIVITY
-    private void openDetailActivity(String...details)
+    private void openDetailActivity(String name, String location, String contact, String description, String photo)
     {
         Intent i=new Intent(context, DetailActivity.class);
 
-        i.putExtra("NAME",details[0]);
-        i.putExtra("LOCATION",details[1]);
-        i.putExtra("CONTACT",details[2]);
-        i.putExtra("DESC",details[3]);
-        i.putExtra("PHOTO", details[4]);
+        i.putExtra("NAME",name);
+        i.putExtra("LOCATION",location);
+        i.putExtra("CONTACT",contact);
+        i.putExtra("DESC",description);
+        i.putExtra("PHOTO", photo);
 
         context.startActivity(i);
     }

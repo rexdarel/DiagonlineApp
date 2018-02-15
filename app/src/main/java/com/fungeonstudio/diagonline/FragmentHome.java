@@ -1,6 +1,5 @@
 package com.fungeonstudio.diagonline;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.fungeonstudio.diagonline.recycler.HospitalAdapter;
-import com.fungeonstudio.diagonline.recycler.Hospitals;
+import com.fungeonstudio.diagonline.recycler.ItemHospital;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -32,7 +32,7 @@ import java.util.List;
  */
 
 public class FragmentHome extends Fragment{
-    private List<Hospitals> hospitals = new ArrayList<>();
+    private List<ItemHospital> hospitals = new ArrayList<>();
     private RecyclerView recyclerView;
     private HospitalAdapter mAdapter;
     private AppCompatActivity appCompatActivity;
@@ -69,7 +69,7 @@ public class FragmentHome extends Fragment{
     }
 
 
-    private List<Hospitals> setupRecipe(){
+    private List<ItemHospital> setupRecipe(){
         hospitals = new ArrayList<>();
 
         databaseReference.child("hospitals").addValueEventListener(new ValueEventListener() {
@@ -79,7 +79,7 @@ public class FragmentHome extends Fragment{
                 {
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
-                        Hospitals hospital = postSnapShot.getValue(Hospitals.class);
+                        ItemHospital hospital = postSnapShot.getValue(ItemHospital.class);
                         hospitals.add(hospital);
                         mAdapter.notifyDataSetChanged();
                     }

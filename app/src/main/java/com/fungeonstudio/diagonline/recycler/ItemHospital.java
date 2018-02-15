@@ -2,16 +2,28 @@ package com.fungeonstudio.diagonline.recycler;
 
 import android.net.Uri;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Admin on 1/20/2018.
  */
 
-public class Hospitals {
+public class ItemHospital {
     private String name;
     private String contact;
     private String location;
     private String description;
     private String photo;
+    private String hospitalId;
+
+    public String getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
     public String getName() {
         return name;
