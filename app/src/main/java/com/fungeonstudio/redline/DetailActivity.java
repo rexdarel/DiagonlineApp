@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline;
+package com.fungeonstudio.redline;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,14 +30,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fungeonstudio.diagonline.R;
-import com.fungeonstudio.diagonline.recycler.CommentsAdapter;
-import com.fungeonstudio.diagonline.recycler.ItemComment;
-import com.fungeonstudio.diagonline.recycler.ItemPreparation;
-import com.fungeonstudio.diagonline.recycler.ItemReview;
-import com.fungeonstudio.diagonline.recycler.PreparationAdapter;
-import com.fungeonstudio.diagonline.recycler.ReviewAdapter;
-import com.fungeonstudio.diagonline.utils.CircleGlide;
+import com.fungeonstudio.redline.recycler.CommentsAdapter;
+import com.fungeonstudio.redline.recycler.ItemComment;
+import com.fungeonstudio.redline.recycler.ItemPreparation;
+import com.fungeonstudio.redline.recycler.ItemReview;
+import com.fungeonstudio.redline.recycler.PreparationAdapter;
+import com.fungeonstudio.redline.recycler.ReviewAdapter;
+import com.fungeonstudio.redline.utils.CircleGlide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +45,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;

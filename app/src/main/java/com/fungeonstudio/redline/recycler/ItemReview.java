@@ -1,6 +1,4 @@
-package com.fungeonstudio.diagonline.recycler;
-
-import java.sql.Timestamp;
+package com.fungeonstudio.redline.recycler;
 
 /**
  * Created by Admin on 2/15/2018.

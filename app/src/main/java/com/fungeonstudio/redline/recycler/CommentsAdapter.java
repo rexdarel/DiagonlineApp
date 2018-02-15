@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline.recycler;
+package com.fungeonstudio.redline.recycler;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fungeonstudio.diagonline.R;
-import com.fungeonstudio.diagonline.utils.CircleGlide;
+import com.fungeonstudio.redline.R;
+import com.fungeonstudio.redline.utils.CircleGlide;
 
 import java.util.List;
 

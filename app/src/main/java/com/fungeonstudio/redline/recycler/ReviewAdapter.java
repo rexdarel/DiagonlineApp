@@ -1,9 +1,7 @@
-package com.fungeonstudio.diagonline.recycler;
+package com.fungeonstudio.redline.recycler;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.fungeonstudio.diagonline.R;
-import com.fungeonstudio.diagonline.utils.CircleGlide;
+import com.fungeonstudio.redline.R;
 
 import java.util.List;
 

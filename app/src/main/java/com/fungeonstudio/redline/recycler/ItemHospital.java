@@ -1,9 +1,4 @@
-package com.fungeonstudio.diagonline.recycler;
-
-import android.net.Uri;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.fungeonstudio.redline.recycler;
 
 /**
  * Created by Admin on 1/20/2018.

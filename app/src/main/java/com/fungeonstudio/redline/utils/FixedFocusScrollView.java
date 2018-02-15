@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline.utils;
+package com.fungeonstudio.redline.utils;
 
 import android.content.Context;
 import android.support.v4.widget.NestedScrollView;

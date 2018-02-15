@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.fungeonstudio.diagonline.utils;
+package com.fungeonstudio.redline.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

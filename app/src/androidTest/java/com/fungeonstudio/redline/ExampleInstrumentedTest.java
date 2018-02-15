@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline;
+package com.fungeonstudio.redline;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

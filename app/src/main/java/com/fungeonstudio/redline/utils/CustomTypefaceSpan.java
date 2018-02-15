@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline.utils;
+package com.fungeonstudio.redline.utils;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

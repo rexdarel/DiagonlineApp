@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline;
+package com.fungeonstudio.redline;
 
 import org.junit.Test;
 

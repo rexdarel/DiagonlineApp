@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline;
+package com.fungeonstudio.redline;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.Spannable;
@@ -33,11 +31,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.fungeonstudio.diagonline.utils.CircleGlide;
-import com.fungeonstudio.diagonline.utils.CustomTypefaceSpan;
+import com.fungeonstudio.redline.utils.CircleGlide;
+import com.fungeonstudio.redline.utils.CustomTypefaceSpan;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

@@ -1,4 +1,4 @@
-package com.fungeonstudio.diagonline.recycler;
+package com.fungeonstudio.redline.recycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
