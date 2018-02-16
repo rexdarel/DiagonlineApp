@@ -34,8 +34,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.MyViewHold
             comment = (TextView) view.findViewById(R.id.tv_text_comment);
             ratingBar = (RatingBar) view.findViewById(R.id.ratingBar);
             userphoto = (ImageView) view.findViewById(R.id.iv_user);
-            img1 = (ImageView) view.findViewById(R.id.imageview1);
-            img2 = (ImageView) view.findViewById(R.id.imageview2);
         }
 
     }

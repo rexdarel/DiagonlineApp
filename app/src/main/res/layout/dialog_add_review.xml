@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:padding="@dimen/spacing_large" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <!--<com.mikhaellopez.circularimageview.CircularImageView android:layout_width="@dimen/spacing_xmlarge" android:layout_height="@dimen/spacing_xmlarge" />-->
+        <View android:layout_width="@dimen/spacing_large" android:layout_height="0.0dip" />
+        <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:textAppearance="@style/TextAppearance.AppCompat.Subhead" android:textStyle="bold" android:textColor="@color/grey_90" android:gravity="center_vertical" android:layout_width="fill_parent" android:id="@+id/username" android:layout_height="wrap_content" android:text="David Park" />
+            <TextView android:textAppearance="@style/TextAppearance.AppCompat.Small" android:textColor="@color/grey_40" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="Customer services" />
+        </LinearLayout>
+    </LinearLayout>
+    <View android:background="@color/grey_10" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_marginLeft="@dimen/spacing_large" android:layout_marginRight="@dimen/spacing_large" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:paddingLeft="@dimen/spacing_large" android:paddingRight="@dimen/spacing_large" android:layout_width="fill_parent" android:layout_height="?actionBarSize">
+        <android.support.v7.widget.AppCompatRatingBar android:theme="@style/Yellow.AppCompatRatingBar" android:id="@+id/rating_bar_dialog" android:layout_width="wrap_content" android:layout_height="wrap_content" android:numStars="5" android:rating="5.0" android:stepSize="1.0" android:isIndicator="false" style="@style/Yellow.AppCompatRatingBar" />
+    </LinearLayout>
+    <LinearLayout android:padding="@dimen/spacing_large" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <EditText android:gravity="top" android:id="@+id/et_post" android:background="@color/grey_3" android:padding="@dimen/spacing_middle" android:layout_width="fill_parent" android:layout_height="fill_parent" android:hint="Write review ..." android:lines="4" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="?actionBarSize">
+        <View android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+        <android.support.v7.widget.AppCompatButton android:gravity="center" android:id="@+id/bt_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CANCEL" style="@style/Button.Accent.Borderless" />
+        <android.support.v7.widget.AppCompatButton android:gravity="center" android:id="@+id/bt_submit" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SUBMIT" style="@style/Widget.AppCompat.Button.Borderless" />
+    </LinearLayout>
+</LinearLayout>

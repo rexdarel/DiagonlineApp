@@ -6,4 +6,10 @@
     <color name="colorTextGrey">#8E939E</color>
     <color name="colorPinkDark">#A8213A</color>
     <color name="colorWhiteTrans">#E6FFFFFF</color>
+
+    <color name="grey_90">#ff263238</color>
+    <color name="grey_40">#ff999999</color>
+    <color name="grey_10">#ffe6e6e6</color>
+    <color name="grey_60">#ff666666</color>
+    <color name="grey_3">#fff7f7f7</color>
 </resources>

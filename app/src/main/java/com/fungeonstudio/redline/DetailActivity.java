@@ -1,5 +1,6 @@
 package com.fungeonstudio.redline;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,9 +12,12 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -37,6 +42,8 @@ import com.fungeonstudio.redline.recycler.ItemReview;
 import com.fungeonstudio.redline.recycler.PreparationAdapter;
 import com.fungeonstudio.redline.recycler.ReviewAdapter;
 import com.fungeonstudio.redline.utils.CircleGlide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +51,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +73,11 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
     private RatingBar ratingBar;
     private Toolbar toolbar;
 
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
+    private String username, email;
+    private Uri photoUrl;
+
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("reviews");
 
 
@@ -75,6 +88,24 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         rootView = (CoordinatorLayout) findViewById(R.id.rootview);
         setupToolbar(R.id.toolbar, "DESSERTS", android.R.color.white, android.R.color.transparent, R.drawable.ic_arrow_back);
 
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            username = user.getDisplayName();
+            email = user.getEmail();
+            photoUrl = user.getPhotoUrl();
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getToken() instead.
+            String uid = user.getUid();
+        }
+
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
 
@@ -84,7 +115,7 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         Intent i = this.getIntent();
-        String name=i.getExtras().getString("NAME");
+        final String name=i.getExtras().getString("NAME");
         String desc = i.getExtras().getString("DESC");
         String location = i.getExtras().getString("LOCATION");
         String photo = i.getExtras().getString("PHOTO");
@@ -92,6 +123,39 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         tv_name.setText(name);
         tv_desc.setText(desc);
         tv_location.setText(location);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(DetailActivity.this);
+                dialog.requestWindowFeature(1);
+                dialog.setContentView(R.layout.dialog_add_review);
+                TextView tv_username = (TextView) dialog.findViewById(R.id.username);
+                tv_username.setText(username);
+                dialog.setCancelable(true);
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(dialog.getWindow().getAttributes());
+                layoutParams.width = -2;
+                layoutParams.height = -2;
+                final EditText editText = (EditText) dialog.findViewById(R.id.et_post);
+                final AppCompatRatingBar appCompatRatingBar = (AppCompatRatingBar) dialog.findViewById(R.id.rating_bar_dialog);
+                ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+
+                    public void onClick(View view) {
+
+                    }
+                });
+                dialog.show();
+                dialog.getWindow().setAttributes(layoutParams);
+            }
+        });
 
         recyclerViewPreparation = (RecyclerView) findViewById(R.id.recyclerPreparation);
 
@@ -160,34 +224,13 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
         menu.findItem(R.id.action_search).setIcon(drawable);
         return true;
     }
-    public List<ItemComment> generateComments(){
-        List<ItemComment> itemList = new ArrayList<>();
-        String username[] = {"LAURA MAGNAGO"};
-        String date[] = {".27-01-2017"};
-        String comments[] = {"Made this for a BBQ today and it was amazing. Bought 2 Madiera cakes from Tesco and cut them Into wedges. Poured the coffee over the top. And used 75ml of Ameretti instead of masala in the cream. Will be making again next week for a gathering and probably many more times! :)"};
-        String userphoto[] = {"https://randomuser.me/api/portraits/women/20.jpg"};
-        String img1[] = {"https://images.pexels.com/photos/8382/pexels-photo.jpg?h=350&auto=compress&cs=tinysrgb"};
-        String img2[] = {"https://images.pexels.com/photos/134574/pexels-photo-134574.jpeg?h=350&auto=compress&cs=tinysrgb"};
-
-        for (int i = 0; i<username.length; i++){
-            ItemComment comment = new ItemComment();
-            comment.setUsername(username[i]);
-            comment.setUserphoto(userphoto[i]);
-            comment.setDate(date[i]);
-            comment.setComments(comments[i]);
-            comment.setImg1(img1[i]);
-            comment.setImg2(img2[i]);
-            itemList.add(comment);
-        }
-        return itemList;
-    }
 
 
     public List<ItemReview> generateReview(){
         final List<ItemReview> itemList = new ArrayList<>();
         final List<String> hospitalKeys = new ArrayList<>();
 
-        /*DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         Query query = reference.child("hospitals").orderByChild("name").equalTo(getIntent().getExtras().getString("NAME"));
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -198,7 +241,30 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
                         //Loop 1 to go through all the child nodes of users
                         for(DataSnapshot booksSnapshot : uniqueKeySnapshot.child("reviews").getChildren()){
                             String key = booksSnapshot.getValue().toString();
-                            hospitalKeys.add(key);
+                            DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
+
+                            Query query1 = reference1.child("reviews").orderByChild("id").equalTo(Long.valueOf(key));
+
+                            query1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists())
+                                    {
+                                        for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
+                                        {
+                                            ItemReview review = postSnapShot.getValue(ItemReview.class);
+                                            itemList.add(review);
+                                            mAdapterReview.notifyDataSetChanged();
+                                        }
+                                    }
+                                    //p
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
                 }
@@ -210,31 +276,6 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
             }
         });
 
-        Log.d("Lists", hospitalKeys.toString());*/
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
-
-            Query query1 = reference1.child("reviews").orderByChild("id").equalTo(1);
-
-            query1.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists())
-                    {
-                        for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
-                        {
-                            ItemReview review = postSnapShot.getValue(ItemReview.class);
-                            itemList.add(review);
-                            mAdapterReview.notifyDataSetChanged();
-                        }
-                    }
-                    //p
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
 
 
         return itemList;
@@ -280,6 +321,33 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    private void l() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(1);
+        dialog.setContentView(R.layout.dialog_add_review);
+        dialog.setCancelable(true);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = -2;
+        layoutParams.height = -2;
+        final EditText editText = (EditText) dialog.findViewById(R.id.et_post);
+        final AppCompatRatingBar appCompatRatingBar = (AppCompatRatingBar) dialog.findViewById(R.id.rating_bar_dialog);
+        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setAttributes(layoutParams);
     }
 
 }

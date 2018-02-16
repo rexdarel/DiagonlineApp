@@ -28,14 +28,4 @@
         android:textColor="@color/colorTextDark"
         android:gravity="center_horizontal"
         style="@style/SemiBold"/>
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_time"
-        android:drawablePadding="@dimen/space8"
-        android:text="1h 20'"
-        android:textSize="@dimen/h3"
-        android:textColor="@color/colorTextGrey"
-        android:textAppearance="@style/Regular"/>
 </LinearLayout>

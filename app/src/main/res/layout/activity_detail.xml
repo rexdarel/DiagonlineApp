@@ -296,6 +296,17 @@
                 </RelativeLayout>
             </LinearLayout>
         </FrameLayout>
-
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom|center"
+        android:layout_margin="18dp"
+        android:tint="@android:color/white"
+        app:rippleColor="@android:color/white"
+        app:fabSize="normal"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_create_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

@@ -75,7 +75,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final ItemHospital itemHospital = items.get(position);
         holder.recipe.setText(itemHospital.getName());
-        holder.time.setText(itemHospital.getLocation());
+        //holder.time.setText(itemHospital.getLocation());
         holder.ratingBar.setRating(3);
         Glide.with(context)
                 .load(itemHospital.getPhoto())
