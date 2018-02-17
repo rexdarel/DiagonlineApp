@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.fungeonstudio.redline.recycler.CommentsAdapter;
@@ -40,8 +42,12 @@ import com.fungeonstudio.redline.recycler.ItemComment;
 import com.fungeonstudio.redline.recycler.ItemPreparation;
 import com.fungeonstudio.redline.recycler.ItemReview;
 import com.fungeonstudio.redline.recycler.PreparationAdapter;
+import com.fungeonstudio.redline.recycler.Review;
 import com.fungeonstudio.redline.recycler.ReviewAdapter;
 import com.fungeonstudio.redline.utils.CircleGlide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +59,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -75,10 +82,10 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
 
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    private String username, email;
+    private String username, email, uid;
     private Uri photoUrl;
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("reviews");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
     @Override
@@ -103,7 +110,7 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getToken() instead.
-            String uid = user.getUid();
+            uid = user.getUid();
         }
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -149,7 +156,28 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
                 ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View view) {
-
+                        String trim = editText.getText().toString();
+                        if(trim.isEmpty()){
+                            Toast.makeText(getApplicationContext(), "Review message is empty", Toast.LENGTH_SHORT).show();
+                        } else {
+                            DatabaseReference ref = databaseReference.child("reviews");
+                            DatabaseReference newRef = ref.push();
+                            String key = newRef.getKey();
+                            newRef.setValue(new Review(key, username, trim, (long) appCompatRatingBar.getRating()))
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            dialog.dismiss();
+                                            Toast.makeText(getApplicationContext(), "Success adding review", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getApplicationContext(), "Error adding review", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
                     }
                 });
                 dialog.show();
@@ -321,33 +349,6 @@ public class DetailActivity extends AppCompatActivity implements PreparationAdap
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
-    }
-
-    private void l() {
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(1);
-        dialog.setContentView(R.layout.dialog_add_review);
-        dialog.setCancelable(true);
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(dialog.getWindow().getAttributes());
-        layoutParams.width = -2;
-        layoutParams.height = -2;
-        final EditText editText = (EditText) dialog.findViewById(R.id.et_post);
-        final AppCompatRatingBar appCompatRatingBar = (AppCompatRatingBar) dialog.findViewById(R.id.rating_bar_dialog);
-        ((AppCompatButton) dialog.findViewById(R.id.bt_cancel)).setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-        ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-
-            }
-        });
-        dialog.show();
-        dialog.getWindow().setAttributes(layoutParams);
     }
 
 }
